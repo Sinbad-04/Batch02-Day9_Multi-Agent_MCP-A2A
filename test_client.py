@@ -9,6 +9,7 @@ import sys
 
 import httpx
 from dotenv import load_dotenv
+from common.a2a_client import _extract_text
 
 load_dotenv()
 
@@ -37,51 +38,39 @@ async def main() -> None:
             print("Make sure all services are running (./start_all.sh)")
             sys.exit(1)
 
-        from a2a.types import AgentCard, Message, Part, Role, TextPart, MessageSendParams
-        from a2a.client import A2AClient
         from uuid import uuid4
+        from a2a.client import ClientFactory, ClientConfig
+        from a2a.types import AgentCard, Message, Part, Role, TextPart
 
         agent_card = AgentCard.model_validate(card_resp.json())
         print(f"Connected to agent: {agent_card.name} v{agent_card.version}")
         print("-" * 60)
 
-        # Build the legacy A2AClient
-        client = A2AClient(httpx_client=http_client, agent_card=agent_card)
+        config = ClientConfig(httpx_client=http_client, streaming=False)
+        factory = ClientFactory(config)
+        client = factory.create(agent_card)
 
-        # Construct the message
-        from a2a.types import SendMessageRequest, MessageSendParams as MSP
         message = Message(
             role=Role.user,
             parts=[Part(root=TextPart(text=QUESTION))],
             message_id=str(uuid4()),
         )
-        request = SendMessageRequest(
-            id=str(uuid4()),
-            params=MSP(message=message),
-        )
 
         print("Sending request (this may take 30-60s while agents chain)...\n")
-        response = await client.send_message(request)
 
-        # Parse response
         result_text = ""
-        if hasattr(response, "root"):
-            root = response.root
-            if hasattr(root, "result"):
-                result = root.result
-                # Task with artifacts
-                if hasattr(result, "artifacts") and result.artifacts:
-                    for artifact in result.artifacts:
-                        for part in artifact.parts:
-                            p = part.root if hasattr(part, "root") else part
-                            if hasattr(p, "text"):
-                                result_text += p.text
-                # Message with parts
-                elif hasattr(result, "parts") and result.parts:
-                    for part in result.parts:
-                        p = part.root if hasattr(part, "root") else part
-                        if hasattr(p, "text"):
-                            result_text += p.text
+        final_result = None
+        async for event in client.send_message(message):
+            # event is ClientEvent (Task, update) or Message
+            if isinstance(event, tuple):
+                task, update = event
+                final_result = task
+            else:
+                # Message
+                final_result = event
+
+        if final_result is not None:
+            result_text = _extract_text(final_result)
 
         if result_text:
             print("RESPONSE:")
@@ -90,7 +79,7 @@ async def main() -> None:
             print("=" * 60)
         else:
             print("No text response received. Raw response:")
-            print(response)
+            print(final_result)
 
 
 if __name__ == "__main__":

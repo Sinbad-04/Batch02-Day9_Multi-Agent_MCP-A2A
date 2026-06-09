@@ -11,14 +11,12 @@ from uuid import uuid4
 
 import httpx
 
-from a2a.client import A2AClient
+from a2a.client import ClientFactory, ClientConfig
 from a2a.types import (
     AgentCard,
     Message,
-    MessageSendParams,
     Part,
     Role,
-    SendMessageRequest,
     TextPart,
 )
 
@@ -51,10 +49,9 @@ async def delegate(
         card_resp.raise_for_status()
         agent_card = AgentCard.model_validate(card_resp.json())
 
-        # Build deprecated (legacy) A2AClient — straightforward for send_message
-        client = A2AClient(httpx_client=http_client, agent_card=agent_card)
+        config = ClientConfig(httpx_client=http_client, streaming=False)
+        client = ClientFactory(config).create(agent_card)
 
-        # Build message with trace metadata
         message = Message(
             role=Role.user,
             parts=[Part(root=TextPart(text=question))],
@@ -67,33 +64,23 @@ async def delegate(
             },
         )
 
-        request = SendMessageRequest(
-            id=str(uuid4()),
-            params=MessageSendParams(message=message),
-        )
-
         logger.debug(
             "Delegating to %s (depth=%d, trace=%s)", endpoint, depth, trace_id
         )
 
-        response = await client.send_message(request)
+        final_result = None
+        async for event in client.send_message(message):
+            if isinstance(event, tuple):
+                final_result = event[0]  # Task
+            else:
+                final_result = event      # Message
 
-        # Extract text from SendMessageResponse
-        return _extract_text(response)
+        return _extract_text(final_result) if final_result is not None else ""
 
 
-def _extract_text(response: object) -> str:
-    """Walk the response tree and collect all TextPart.text values."""
+def _extract_text(result: object) -> str:
+    """Extract text from a Task or Message returned by client.send_message."""
     text = ""
-
-    # Unwrap root if it's a RootModel
-    if hasattr(response, "root"):
-        response = response.root
-
-    # SendMessageSuccessResponse has a .result (Task | Message)
-    result = getattr(response, "result", None)
-    if result is None:
-        return text
 
     # Task — text lives in artifacts
     artifacts = getattr(result, "artifacts", None)
