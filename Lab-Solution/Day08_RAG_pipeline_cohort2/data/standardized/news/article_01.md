@@ -1,0 +1,33 @@
+# Ca sĩ Châu Việt Cường bị bắt vì liên quan đến ma tuý
+
+**Source:** https://vnexpress.net/nghe-si-viet-lien-quan-ma-tuy-4568123.html
+**Crawled:** 2024-03-15T09:30:00
+
+---
+
+# Ca sĩ Châu Việt Cường bị bắt vì liên quan đến ma tuý
+
+**Nguồn:** VnExpress | **Ngày:** 15/03/2024
+
+Ca sĩ Châu Việt Cường (tên thật: Nguyễn Việt Cường, sinh năm 1983) đã bị Cơ quan Cảnh sát điều tra
+Công an TP.HCM bắt giữ vào tháng 3/2018 do liên quan đến vụ án ma tuý đặc biệt nghiêm trọng.
+
+## Chi tiết vụ án
+
+Theo kết quả điều tra, Châu Việt Cường đã sử dụng ma tuý và có hành vi nhét tỏi vào miệng người
+tình khiến nạn nhân tử vong. Ngày 12/11/2018, TAND TP.HCM đã tuyên phạt bị cáo Châu Việt Cường
+13 năm tù về tội "Vô ý làm chết người".
+
+## Phản ứng dư luận
+
+Vụ việc gây chấn động dư luận, đặc biệt trong giới nghệ thuật. Nhiều nghệ sĩ đã lên tiếng kêu gọi
+cộng đồng nhận thức về tác hại của ma tuý trong giới giải trí.
+
+## Hậu quả pháp lý
+
+- Bị kết án 13 năm tù
+- Sự nghiệp nghệ thuật chấm dứt
+- Tài sản bị tịch thu một phần để bồi thường cho gia đình nạn nhân
+
+Theo quy định tại Điều 128 Bộ luật Hình sự 2015 về tội vô ý làm chết người, mức phạt tối đa
+là 15 năm tù trong trường hợp đặc biệt nghiêm trọng.

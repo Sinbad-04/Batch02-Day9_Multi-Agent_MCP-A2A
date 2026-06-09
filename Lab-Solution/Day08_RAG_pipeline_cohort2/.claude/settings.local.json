@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install *)",
+      "Bash(pip list *)",
+      "Bash(python -m src.task1_collect_legal_docs)",
+      "Bash(set PYTHONIOENCODING=utf-8)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python -m src.task1_collect_legal_docs 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python -m src.task2_crawl_news 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python -m src.task3_convert_markdown 2>&1)",
+      "PowerShell(pip install *)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python -m src.task4_chunking_indexing 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python -m pytest tests/test_individual.py::TestTask1 tests/test_individual.py::TestTask2 tests/test_individual.py::TestTask3 -v 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; $env:HF_HUB_DISABLE_SYMLINKS_WARNING=\"1\"; python -m src.task4_chunking_indexing 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; $env:HF_HUB_DISABLE_SYMLINKS_WARNING=\"1\"; $env:TRANSFORMERS_OFFLINE=\"1\"; $env:HF_DATASETS_OFFLINE=\"1\"; python -m src.task4_chunking_indexing 2>&1)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Admin\\\\.cache\\\\huggingface\\\\hub\\\\models--sentence-transformers--all-MiniLM-L6-v2\" -Recurse -ErrorAction SilentlyContinue | Select-Object FullName, Length | Where-Object {$_.Length -gt 0})",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Admin\\\\.cache\\\\huggingface\\\\hub\\\\models--sentence-transformers--paraphrase-multilingual-MiniLM-L12-v2\" -Recurse -ErrorAction SilentlyContinue | Select-Object Name, Length | Where-Object {$_.Length -gt 100000})",
+      "PowerShell($response = Invoke-WebRequest -Uri \"https://huggingface.co\" -TimeoutSec 10 -Method Head -ErrorAction SilentlyContinue; $response.StatusCode)",
+      "PowerShell(python -c \"import sklearn; print\\(sklearn.__version__\\)\" 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python -m pytest tests/test_individual.py -v 2>&1)",
+      "Skill(run)",
+      "Bash(python -c \"import streamlit; print\\(streamlit.__version__\\)\")",
+      "Bash(curl -s http://localhost:8501)",
+      "PowerShell(Start-Sleep -Seconds 3; try { $r = Invoke-RestMethod -Uri \"http://localhost:8501/healthz\" -TimeoutSec 5; $r } catch { \"health check: $_\" })",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python test_smoke.py 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python -m pytest tests/test_individual.py -v --tb=no 2>&1)",
+      "PowerShell(cd \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\"; $env:PYTHONIOENCODING=\"utf-8\"; python _gather_stats.py 2>&1 | Where-Object { $_ -notmatch \"warning|Warning|UserWarning|Retry|notice|HF_TOKEN\" })",
+      "PowerShell($r = Get-Item \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\\\\REPORT.md\"; $g = Get-Item \"D:\\\\python_project\\\\day8\\\\Day08_RAG_pipeline_cohort2\\\\group_project\\\\README.md\"; \"REPORT.md: $\\([math]::Round\\($r.Length/1024,1\\)\\) KB\"; \"group_project/README.md: $\\([math]::Round\\($g.Length/1024,1\\)\\) KB\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Bash(python -c \"import ast, sys; ast.parse\\(open\\('src/multi_agent_pipeline.py'\\).read\\(\\)\\); print\\('multi_agent_pipeline.py: OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('demo_app.py'\\).read\\(\\)\\); print\\('demo_app.py: OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('src/multi_agent_pipeline.py', encoding='utf-8'\\).read\\(\\)\\); print\\('multi_agent_pipeline.py: OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('demo_app.py', encoding='utf-8'\\).read\\(\\)\\); print\\('demo_app.py: OK'\\)\")",
+      "Bash(python -c ' *)"
+    ]
+  }
+}
